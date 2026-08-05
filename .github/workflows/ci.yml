@@ -1,0 +1,126 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-rust:
+    name: Rust Engine Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: crates/vite-plus-kumo
+
+      - name: Run Cargo Tests
+        run: cargo test --manifest-path crates/vite-plus-kumo/Cargo.toml
+
+  # The plugin ships two rule engines and picks whichever is available at
+  # runtime. This job builds the native binding and asserts that it produces
+  # byte-identical diagnostics to the JavaScript fallback. Without it, a
+  # developer with a prebuilt binding and a CI runner without one silently
+  # enforce different rules.
+  engine-parity:
+    name: Rust / JS Engine Parity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: crates/vite-plus-kumo
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Regenerate Allowlists
+        run: npm run generate:allowlists
+
+      - name: Build Native Binding
+        run: |
+          cargo build --release --manifest-path crates/vite-plus-kumo/Cargo.toml
+          cp crates/vite-plus-kumo/target/release/libvite_plus_kumo.so \
+             crates/vite-plus-kumo/target/release/vite_plus_kumo.node
+
+      # Must compile from inside the package so it uses the package's own
+      # TypeScript — the same compiler the build script and the staleness gate
+      # use. Running tsc from the repo root silently compiles nothing.
+      - name: Compile Plugin
+        run: npm run build:plugin
+
+      - name: Assert Both Engines Agree
+        run: npm run lint:kumo:parity
+
+      - name: Drift Check (native engine)
+        run: npm run lint:kumo
+
+      - name: Drift Check (JS fallback)
+        run: VITE_PLUS_KUMO_NO_NATIVE=1 npm run lint:kumo
+
+  test-frontend:
+    name: Frontend & Linter Quality Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      # Covers src/, vite.config.ts *and* the plugin package, whose ~700 lines
+      # of fallback engine were previously outside every tsconfig include.
+      - name: TypeScript Type Check
+        run: npm run typecheck
+
+      - name: Assert Committed Plugin Build Is Current
+        run: |
+          npm run build:plugin
+          git diff --exit-code -- packages/vite-plus-kumo/dist \
+            || (echo "::error::packages/vite-plus-kumo/dist is stale — run 'npm run build:plugin' and commit the result." && exit 1)
+
+      - name: Assert Generated Allowlists Are Current
+        run: |
+          npm run generate:allowlists
+          git diff --exit-code -- packages/vite-plus-kumo/generated_allowlists.json crates/vite-plus-kumo/src/rules/generated_allowlists.rs \
+            || (echo "::error::Generated allowlists are stale — run 'npm run generate:allowlists' and commit the result." && exit 1)
+
+      - name: Oxlint Code Linter
+        run: npm run lint
+
+      - name: Kumo Design System Drift Check
+        run: npm run lint:kumo
+
+      - name: Kumo Standalone CLI Linter
+        run: VITE_PLUS_KUMO_NO_NATIVE=1 npm run lint:kumo:cli
+
+      - name: Build Production Application
+        run: npx vite build

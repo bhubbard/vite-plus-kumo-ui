@@ -1,0 +1,448 @@
+{
+  "componentProps": {
+    "Badge": {
+      "variant": [
+        "primary",
+        "secondary",
+        "error",
+        "warning",
+        "success",
+        "destructive",
+        "info",
+        "beta",
+        "outline",
+        "red",
+        "green",
+        "neutral",
+        "orange",
+        "purple",
+        "teal",
+        "teal-subtle",
+        "blue"
+      ],
+      "appearance": [
+        "filled",
+        "dot"
+      ]
+    },
+    "Banner": {
+      "variant": [
+        "default",
+        "alert",
+        "error",
+        "secondary"
+      ],
+      "size": [
+        "base",
+        "sm"
+      ]
+    },
+    "Breadcrumbs": {
+      "size": [
+        "sm",
+        "base"
+      ]
+    },
+    "Button": {
+      "shape": [
+        "base",
+        "square",
+        "circle"
+      ],
+      "size": [
+        "xs",
+        "sm",
+        "base",
+        "lg"
+      ],
+      "variant": [
+        "primary",
+        "secondary",
+        "ghost",
+        "destructive",
+        "secondary-destructive",
+        "outline"
+      ],
+      "type": [
+        "submit",
+        "reset",
+        "button"
+      ]
+    },
+    "Checkbox": {
+      "variant": [
+        "default",
+        "error"
+      ]
+    },
+    "ClipboardText": {
+      "size": [
+        "sm",
+        "base",
+        "lg"
+      ]
+    },
+    "CloudflareLogo": {
+      "accumulate": [
+        "none",
+        "sum"
+      ],
+      "additive": [
+        "replace",
+        "sum"
+      ],
+      "alignmentBaseline": [
+        "auto",
+        "baseline",
+        "before-edge",
+        "text-before-edge",
+        "middle",
+        "central",
+        "after-edge",
+        "text-after-edge",
+        "ideographic",
+        "alphabetic",
+        "hanging",
+        "mathematical",
+        "inherit"
+      ],
+      "allowReorder": [
+        "no",
+        "yes"
+      ],
+      "arabicForm": [
+        "initial",
+        "medial",
+        "terminal",
+        "isolated"
+      ],
+      "colorInterpolationFilters": [
+        "auto",
+        "sRGB",
+        "linearRGB",
+        "inherit"
+      ],
+      "dominantBaseline": [
+        "auto",
+        "use-script",
+        "no-change",
+        "reset-size",
+        "ideographic",
+        "alphabetic",
+        "hanging",
+        "mathematical",
+        "central",
+        "middle",
+        "text-after-edge",
+        "text-before-edge",
+        "inherit"
+      ],
+      "fillRule": [
+        "nonzero",
+        "evenodd",
+        "inherit"
+      ],
+      "strokeLinecap": [
+        "butt",
+        "round",
+        "square",
+        "inherit"
+      ],
+      "strokeLinejoin": [
+        "miter",
+        "round",
+        "bevel",
+        "inherit"
+      ],
+      "textAnchor": [
+        "start",
+        "middle",
+        "end",
+        "inherit"
+      ],
+      "variant": [
+        "glyph",
+        "full"
+      ]
+    },
+    "Code": {
+      "lang": [
+        "ts",
+        "tsx",
+        "jsonc",
+        "bash",
+        "css"
+      ]
+    },
+    "Combobox": {
+      "size": [
+        "xs",
+        "sm",
+        "base",
+        "lg"
+      ],
+      "inputSide": [
+        "right",
+        "top"
+      ]
+    },
+    "DateRangePicker": {
+      "size": [
+        "sm",
+        "base",
+        "lg"
+      ],
+      "variant": [
+        "default",
+        "subtle"
+      ]
+    },
+    "Dialog": {
+      "size": [
+        "base",
+        "sm",
+        "lg",
+        "xl"
+      ]
+    },
+    "DropdownMenu": {
+      "variant": [
+        "default",
+        "danger"
+      ]
+    },
+    "Empty": {
+      "size": [
+        "sm",
+        "base",
+        "lg"
+      ]
+    },
+    "Grid": {
+      "gap": [
+        "none",
+        "sm",
+        "base",
+        "lg"
+      ],
+      "variant": [
+        "2up",
+        "side-by-side",
+        "2-1",
+        "1-2",
+        "1-3up",
+        "3up",
+        "4up",
+        "6up",
+        "1-2-4up"
+      ]
+    },
+    "Input": {
+      "size": [
+        "xs",
+        "sm",
+        "base",
+        "lg"
+      ],
+      "variant": [
+        "default",
+        "error"
+      ]
+    },
+    "InputGroup": {
+      "size": [
+        "xs",
+        "sm",
+        "base",
+        "lg"
+      ]
+    },
+    "Link": {
+      "variant": [
+        "inline",
+        "current",
+        "plain"
+      ],
+      "referrerPolicy": [
+        "no-referrer",
+        "no-referrer-when-downgrade",
+        "origin",
+        "origin-when-cross-origin",
+        "same-origin",
+        "strict-origin",
+        "strict-origin-when-cross-origin",
+        "unsafe-url"
+      ]
+    },
+    "Loader": {
+      "size": [
+        "sm",
+        "base",
+        "lg"
+      ]
+    },
+    "Pagination": {
+      "controls": [
+        "full",
+        "simple"
+      ]
+    },
+    "Popover": {
+      "side": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ]
+    },
+    "Radio": {
+      "variant": [
+        "default",
+        "error"
+      ]
+    },
+    "Select": {
+      "size": [
+        "xs",
+        "sm",
+        "base",
+        "lg"
+      ]
+    },
+    "SensitiveInput": {
+      "size": [
+        "xs",
+        "sm",
+        "base",
+        "lg"
+      ],
+      "variant": [
+        "default",
+        "error"
+      ]
+    },
+    "Sidebar": {
+      "variant": [
+        "sidebar",
+        "floating",
+        "inset"
+      ],
+      "side": [
+        "left",
+        "right"
+      ],
+      "collapsible": [
+        "icon",
+        "offcanvas",
+        "none"
+      ]
+    },
+    "Switch": {
+      "variant": [
+        "default",
+        "neutral"
+      ],
+      "size": [
+        "sm",
+        "base",
+        "lg"
+      ],
+      "type": [
+        "submit",
+        "reset",
+        "button"
+      ]
+    },
+    "Table": {
+      "layout": [
+        "auto",
+        "fixed"
+      ],
+      "variant": [
+        "default",
+        "selected"
+      ],
+      "sticky": [
+        "left",
+        "right"
+      ]
+    },
+    "Tabs": {
+      "variant": [
+        "segmented",
+        "underline"
+      ],
+      "size": [
+        "base",
+        "sm"
+      ]
+    },
+    "Text": {
+      "variant": [
+        "heading1",
+        "heading2",
+        "heading3",
+        "body",
+        "secondary",
+        "success",
+        "error",
+        "mono",
+        "mono-secondary"
+      ],
+      "size": [
+        "xs",
+        "sm",
+        "base",
+        "lg"
+      ],
+      "as": [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "p",
+        "span",
+        "label",
+        "dt",
+        "dd",
+        "li",
+        "figcaption",
+        "legend",
+        "pre",
+        "code",
+        "em",
+        "strong",
+        "small",
+        "abbr",
+        "time"
+      ]
+    },
+    "Toasty": {
+      "variant": [
+        "default",
+        "success",
+        "error",
+        "warning",
+        "info"
+      ]
+    },
+    "Toolbar": {
+      "size": [
+        "xs",
+        "sm",
+        "base",
+        "lg"
+      ]
+    },
+    "Tooltip": {
+      "side": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ]
+    }
+  }
+}

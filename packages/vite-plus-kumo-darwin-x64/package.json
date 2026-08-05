@@ -1,0 +1,21 @@
+{
+  "name": "vite-plus-kumo-darwin-x64",
+  "version": "0.1.0",
+  "description": "Native binding for vite-plus-kumo on macOS x64.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloudflare/vite-plus-kumo.git"
+  },
+  "main": "./vite_plus_kumo.node",
+  "exports": "./vite_plus_kumo.node",
+  "files": [
+    "vite_plus_kumo.node"
+  ],
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "x64"
+  ]
+}

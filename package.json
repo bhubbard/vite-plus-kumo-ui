@@ -1,0 +1,39 @@
+{
+  "name": "vite-plus-kumo-ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "test": "cargo test --manifest-path crates/vite-plus-kumo/Cargo.toml && npm run typecheck && npm run lint:kumo:parity",
+    "typecheck": "tsc -b && cd packages/vite-plus-kumo && npx tsc --noEmit",
+    "build:plugin": "cd packages/vite-plus-kumo && npx tsc",
+    "lint": "oxlint",
+    "lint:kumo": "node scripts/kumo-drift-check.mjs",
+    "lint:kumo:cli": "node packages/vite-plus-kumo/bin/vite-plus-kumo.js src",
+    "lint:kumo:update": "node scripts/kumo-drift-check.mjs --update",
+    "lint:kumo:parity": "node scripts/kumo-parity-check.mjs",
+    "generate:allowlists": "node scripts/generate-allowlists.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@cloudflare/kumo": "^2.9.1",
+    "@phosphor-icons/react": "^2.1.10",
+    "@tailwindcss/vite": "^4.3.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "eslint-plugin-better-tailwindcss": "^4.7.0",
+    "oxlint": "^1.75.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0",
+    "vite-plus-kumo": "file:./packages/vite-plus-kumo"
+  }
+}

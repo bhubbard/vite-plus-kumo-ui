@@ -1,0 +1,11 @@
+{
+  "rawControls": "warn",
+  "rawLinks": "warn",
+  "hardcodedColors": "warn",
+  "invalidProps": "warn",
+  "forbiddenImports": "error",
+  "checkFoucScript": "warn",
+  "cssDirectives": "error",
+  "checkTailwindV4": true,
+  "//": "Class-name rules (raw Tailwind colours, bg-white, dark:, cf-*, unknown *-kumo-* tokens) are enforced by eslint-plugin-better-tailwindcss via .oxlintrc.json."
+}

@@ -1,0 +1,100 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish-native:
+    name: Publish ${{ matrix.package }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - package: vite-plus-kumo-darwin-arm64
+            os: macos-14
+            target: aarch64-apple-darwin
+            artifact: crates/vite-plus-kumo/target/aarch64-apple-darwin/release/libvite_plus_kumo.dylib
+          - package: vite-plus-kumo-darwin-x64
+            os: macos-15-intel
+            target: x86_64-apple-darwin
+            artifact: crates/vite-plus-kumo/target/x86_64-apple-darwin/release/libvite_plus_kumo.dylib
+          - package: vite-plus-kumo-linux-x64-gnu
+            os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            artifact: crates/vite-plus-kumo/target/x86_64-unknown-linux-gnu/release/libvite_plus_kumo.so
+          - package: vite-plus-kumo-linux-arm64-gnu
+            os: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-gnu
+            artifact: crates/vite-plus-kumo/target/aarch64-unknown-linux-gnu/release/libvite_plus_kumo.so
+          - package: vite-plus-kumo-win32-x64-msvc
+            os: windows-latest
+            target: x86_64-pc-windows-msvc
+            artifact: crates/vite-plus-kumo/target/x86_64-pc-windows-msvc/release/vite_plus_kumo.dll
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Verify tag matches package version
+        shell: bash
+        run: node -e "const p=require('./packages/${{ matrix.package }}/package.json'); if(process.env.GITHUB_REF_NAME !== 'v'+p.version) throw new Error('Tag '+process.env.GITHUB_REF_NAME+' does not match '+p.name+'@'+p.version)"
+
+      - name: Build native binding
+        shell: bash
+        run: cargo build --release --manifest-path crates/vite-plus-kumo/Cargo.toml --target ${{ matrix.target }}
+
+      - name: Stage native binding
+        shell: bash
+        run: node -e "require('node:fs').copyFileSync(process.argv[1], process.argv[2])" "${{ matrix.artifact }}" "packages/${{ matrix.package }}/vite_plus_kumo.node"
+
+      - name: Fix macOS install name
+        if: runner.os == 'macOS'
+        run: install_name_tool -id @rpath/vite_plus_kumo.node packages/${{ matrix.package }}/vite_plus_kumo.node
+
+      - name: Publish native package
+        run: npm publish ./packages/${{ matrix.package }} --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-generic:
+    name: Publish vite-plus-kumo
+    needs: publish-native
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Verify tag matches package version
+        run: node -e "const p=require('./packages/vite-plus-kumo/package.json'); if(process.env.GITHUB_REF_NAME !== 'v'+p.version) throw new Error('Tag '+process.env.GITHUB_REF_NAME+' does not match '+p.name+'@'+p.version)"
+
+      - name: Install dependencies
+        run: npm install --ignore-scripts --omit=optional
+
+      - name: Publish generic package
+        run: npm publish ./packages/vite-plus-kumo --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

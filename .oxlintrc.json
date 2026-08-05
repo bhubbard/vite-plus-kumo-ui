@@ -1,0 +1,48 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "jsPlugins": ["eslint-plugin-better-tailwindcss"],
+  "settings": {
+    "better-tailwindcss": {
+      "entryPoint": "src/index.css"
+    }
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": "off",
+
+    "better-tailwindcss/no-unknown-classes": "error",
+    "better-tailwindcss/no-conflicting-classes": "error",
+    "better-tailwindcss/no-concatenated-classes": "error",
+    "better-tailwindcss/no-duplicate-classes": "warn",
+    "better-tailwindcss/no-deprecated-classes": "warn",
+    "better-tailwindcss/no-unnecessary-whitespace": "warn",
+
+    "better-tailwindcss/no-restricted-classes": [
+      "error",
+      {
+        "restrict": [
+          {
+            "pattern": "^(bg|text|border|ring)-(red|blue|green|yellow|indigo|purple|pink|gray|slate|zinc|neutral|stone|emerald|teal|cyan|sky|violet|fuchsia|rose|amber|lime)-(50|100|200|300|400|500|600|700|800|900|950)$",
+            "message": "Raw Tailwind color. Use a Kumo semantic token instead (bg-kumo-base, text-kumo-default, bg-kumo-danger-tint)."
+          },
+          {
+            "pattern": "^(bg|text)-(white|black)$",
+            "message": "Non-themeable color. Use bg-kumo-base or text-kumo-default so dark mode works."
+          },
+          {
+            "pattern": "^dark:",
+            "message": "Tailwind 'dark:' variant. Kumo switches theme via the data-mode attribute and light-dark() tokens, so dark: is never needed."
+          },
+          {
+            "pattern": "^cf-",
+            "message": "Legacy cf-* class. Migrate to Kumo components and kumo- design tokens."
+          }
+        ]
+      }
+    ],
+
+    "better-tailwindcss/enforce-consistent-class-order": "off",
+    "better-tailwindcss/enforce-consistent-line-wrapping": "off"
+  }
+}
