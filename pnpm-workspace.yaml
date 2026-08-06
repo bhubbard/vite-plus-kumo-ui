@@ -1,0 +1,7 @@
+allowBuilds:
+  esbuild: true
+  workerd: true
+  "@rolldown/*": true
+  vite-plus-kumo: true
+  vite-plus-wrangler: true
+  vite-plus-commitlint: true
