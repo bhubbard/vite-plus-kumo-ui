@@ -15,7 +15,8 @@
     "lint:kumo:update": "node scripts/kumo-drift-check.mjs --update",
     "lint:kumo:parity": "node scripts/kumo-parity-check.mjs",
     "generate:allowlists": "node scripts/generate-allowlists.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "commitlint": "vite-plus-commitlint"
   },
   "dependencies": {
     "@cloudflare/kumo": "^2.9.1",
@@ -35,7 +36,8 @@
     "typescript": "~6.0.2",
     "vite": "^8.2.0",
     "vite-plus-kumo": "file:./packages/vite-plus-kumo",
-    "vite-plus": "^0.2.6"
+    "vite-plus": "^0.2.6",
+    "vite-plus-commitlint": "^1.1.3"
   },
   "devEngines": {
     "packageManager": {
