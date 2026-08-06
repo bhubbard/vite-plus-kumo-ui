@@ -34,6 +34,14 @@
     "oxlint": "^1.75.0",
     "typescript": "~6.0.2",
     "vite": "^8.2.0",
-    "vite-plus-kumo": "file:./packages/vite-plus-kumo"
+    "vite-plus-kumo": "file:./packages/vite-plus-kumo",
+    "vite-plus": "^0.2.6"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": "12.0.2",
+      "onFail": "download"
+    }
   }
 }
