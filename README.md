@@ -1,6 +1,10 @@
 # Vite + Kumo UI (`vite-plus-kumo-ui`)
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-code.brandonhubbard.com-brightgreen?logo=github)](https://code.brandonhubbard.com/vite-plus-kumo-ui/)
+
 A modern React 19 + TypeScript + Vite project integrated with Cloudflare's **Kumo UI** design system (`@cloudflare/kumo`) and powered by a custom **high-performance Rust Vite / Vite-Plus linter plugin** (`vite-plus-kumo`).
+
+> 🎮 **Live Interactive Visualizer & Demo:** [vite-plus-kumo-ui on code.brandonhubbard.com](https://code.brandonhubbard.com/vite-plus-kumo-ui/)
 
 ---
 
